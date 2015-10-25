@@ -63,15 +63,6 @@ namespace ModConsole
       ModConfigSectionLoader loader = new ModConfigSectionLoader();
       if (loader.Load())      
         loader.Run();
-
-      Dictionary<Guid, ModuleConfig>.Enumerator enumerator = loader.ModuleInstances.GetEnumerator();
-      while (enumerator.MoveNext())
-      {   
-        object item = ((ModuleConfig)enumerator.Current.Value).Instance;
-        if (item as Lockable != null)
-          lockables.Add(item as Lockable);
-        Console.WriteLine(item.ToString());
-      }
       Console.ReadLine();
     }
   }

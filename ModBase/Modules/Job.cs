@@ -131,8 +131,11 @@ namespace ModBase.Modules
 
     public virtual bool Work()
     {
-      System.Console.WriteLine("WORK WORK");
-      return false;
+      if(string.IsNullOrWhiteSpace(Label))
+        System.Console.WriteLine("Work work");
+      else
+        System.Console.WriteLine(Label);
+      return true;
     }
 
     public override System.Configuration.ConfigurationElement ToConfig()
