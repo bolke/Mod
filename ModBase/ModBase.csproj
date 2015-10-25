@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{048E7EF0-D4A3-4EE4-9620-B093DCF4B5B6}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ModBase</RootNamespace>
+    <AssemblyName>ModBase</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\ bin\build\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\ bin\build\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Combinations\RunnableWorker.cs" />
+    <Compile Include="Configuration\Properties\ConfigureAttribute.cs" />
+    <Compile Include="Configuration\Properties\PropertyConfig.cs" />
+    <Compile Include="Configuration\Properties\PropertyConfigCollection.cs" />
+    <Compile Include="Configuration\Section\ModConfigSectionLoader.cs" />
+    <Compile Include="Configuration\Section\ModConfigSection.cs" />
+    <Compile Include="Configuration\Modules\ModuleConfig.cs" />
+    <Compile Include="Configuration\Modules\ModuleConfigCollection.cs" />
+    <Compile Include="Configuration\Plugins\PluginConfig.cs" />
+    <Compile Include="Configuration\Plugins\PluginConfigCollection.cs" />
+    <Compile Include="Configuration\Types\TypeFabrication.cs" />
+    <Compile Include="Configuration\Types\TypeFactory.cs" />
+    <Compile Include="Interfaces\Pipes\IObjectPipe.cs" />
+    <Compile Include="Interfaces\Config\IConfigurable.cs" />
+    <Compile Include="Interfaces\Running\IExecutable.cs" />
+    <Compile Include="Interfaces\Config\IInitiator.cs" />
+    <Compile Include="Interfaces\Running\IJob.cs" />
+    <Compile Include="Interfaces\Config\ILockable.cs" />
+    <Compile Include="Interfaces\Pipes\IPipe.cs" />
+    <Compile Include="Interfaces\Running\IRunnable.cs" />
+    <Compile Include="Interfaces\Running\IWorker.cs" />
+    <Compile Include="Modules\Abstracts\Executable.cs" />
+    <Compile Include="Modules\Abstracts\Initiator.cs" />
+    <Compile Include="Modules\Job.cs" />
+    <Compile Include="Modules\Abstracts\Lockable.cs" />
+    <Compile Include="Modules\Pipe.cs" />
+    <Compile Include="Modules\Abstracts\Runnable.cs" />
+    <Compile Include="Modules\Worker.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
