@@ -40,7 +40,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Combinations\RunnableWorker.cs" />
     <Compile Include="Configuration\Properties\ConfigureAttribute.cs" />
     <Compile Include="Configuration\Properties\PropertyConfig.cs" />
     <Compile Include="Configuration\Properties\PropertyConfigCollection.cs" />
@@ -54,6 +53,7 @@
     <Compile Include="Configuration\Types\TypeFactory.cs" />
     <Compile Include="Interfaces\Pipes\IObjectPipe.cs" />
     <Compile Include="Interfaces\Config\IConfigurable.cs" />
+    <Compile Include="Interfaces\Pipes\IQueuePipe.cs" />
     <Compile Include="Interfaces\Running\IExecutable.cs" />
     <Compile Include="Interfaces\Config\IInitiator.cs" />
     <Compile Include="Interfaces\Running\IJob.cs" />

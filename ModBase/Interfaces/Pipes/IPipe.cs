@@ -8,9 +8,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ModBase.Interfaces
+namespace ModBase.Interfaces.Pipes
 {
-  public interface IPipe<T> : ILockable, IConfigurable, IList<T>, IObjectPipe
+  public interface IPipe<T> : IQueuePipe<T>, IList<T>
   {
     [Configure(InitType = typeof(List<>))]
     IList<T> Data
@@ -18,8 +18,5 @@ namespace ModBase.Interfaces
       get;
       set;
     }
-
-    T Pop();
-    bool Push(T element);
   }
 }

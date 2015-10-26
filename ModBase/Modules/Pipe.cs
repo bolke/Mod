@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Collections.ObjectModel;
+using ModBase.Interfaces.Pipes;
 
 namespace ModBase.Modules
 {

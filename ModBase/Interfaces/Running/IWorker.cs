@@ -1,4 +1,5 @@
 ﻿using ModBase.Configuration.Properties;
+using ModBase.Interfaces.Pipes;
 using ModBase.Modules;
 using System;
 using System.Collections.Generic;
@@ -10,14 +11,14 @@ namespace ModBase.Interfaces
 {
   public interface IWorker<T> : IJob
   {
-    [Configure(InitType = typeof(IPipe<>))]
+    [Configure(InitType = typeof(Pipe<>))]
     IPipe<T> Pool
     {
       get;
       set;
     }
 
-    [Configure(InitType = typeof(IPipe<>))]
+    [Configure(InitType = typeof(Pipe<>))]
     IPipe<T> Finished
     {
       get;

@@ -175,6 +175,16 @@ namespace ModBase.Modules
       }
     }
 
+    public override bool Initialize()
+    {
+      if(base.Initialize())
+      {
+        ScheduleNext();
+        return true;
+      }
+      return false;
+    }
+
     public virtual int CompareTo(object other)
     {
       int result = -1;

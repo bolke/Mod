@@ -377,6 +377,7 @@ namespace ModBase.Configuration.Section
       }
       return result;
     }
+
     protected virtual Boolean LoadPlugins(PluginConfigCollection collection)
     {
       if (collection != null)
@@ -399,7 +400,14 @@ namespace ModBase.Configuration.Section
       return false;
     }
 
-    public Boolean Load()
+    public Boolean LoadAndRun(string sectionName = "ModConfigSection")
+    {
+      if(Load(sectionName))
+        return Run();
+      return false;
+    }
+
+    public Boolean Load(string sectionName = "ModConfigSection")
     {
       bool result = false;
       //!TODO cleaning of private variables, making it ready for loading, removing old loaded instances
@@ -407,7 +415,7 @@ namespace ModBase.Configuration.Section
       typeFactory.LoadPreloadedAssemblies();
 
       System.Configuration.Configuration configuration = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-      ModConfigSection section = configuration.GetSection("ModConfigSection") as ModConfigSection;
+      ModConfigSection section = configuration.GetSection(sectionName) as ModConfigSection;
       if (section != null)
       {
         pluginsLoaded = LoadPlugins(section.PluginCollection);

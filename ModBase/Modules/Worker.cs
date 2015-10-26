@@ -1,5 +1,6 @@
 ﻿using ModBase.Configuration.Properties;
 using ModBase.Interfaces;
+using ModBase.Interfaces.Pipes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
