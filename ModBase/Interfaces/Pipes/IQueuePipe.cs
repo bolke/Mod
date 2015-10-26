@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ModBase.Interfaces.Pipes
 {
-  public interface IQueuePipe<T>: ILockable, IConfigurable, IObjectPipe
+  public interface IQueuePipe<T>: ILockable, IConfigurable, IBasePipe
   {
     T Pop();
     bool Push(T element);

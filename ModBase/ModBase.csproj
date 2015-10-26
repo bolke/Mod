@@ -51,7 +51,7 @@
     <Compile Include="Configuration\Plugins\PluginConfigCollection.cs" />
     <Compile Include="Configuration\Types\TypeFabrication.cs" />
     <Compile Include="Configuration\Types\TypeFactory.cs" />
-    <Compile Include="Interfaces\Pipes\IObjectPipe.cs" />
+    <Compile Include="Interfaces\Pipes\IBasePipe.cs" />
     <Compile Include="Interfaces\Config\IConfigurable.cs" />
     <Compile Include="Interfaces\Pipes\IQueuePipe.cs" />
     <Compile Include="Interfaces\Running\IExecutable.cs" />

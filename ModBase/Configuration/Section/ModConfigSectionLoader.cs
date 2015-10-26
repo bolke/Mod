@@ -202,7 +202,7 @@ namespace ModBase.Configuration.Section
         module = modInstEnum.Current.Value;
         if (module.IsPipe())
         {
-          IObjectPipe bucket = module.Instance as IObjectPipe;
+          IBasePipe bucket = module.Instance as IBasePipe;
           IEnumerator pipeContentEnum = module.ModuleConfigCollection.GetEnumerator();
           while (pipeContentEnum.MoveNext())
           {
@@ -218,7 +218,7 @@ namespace ModBase.Configuration.Section
         module = modRefEnum.Current.Value;
         if (module.IsPipe())
         {
-          IObjectPipe bucket = module.Instance as IObjectPipe;
+          IBasePipe bucket = module.Instance as IBasePipe;
           IEnumerator pipeContentEnum = module.ModuleConfigCollection.GetEnumerator();
           while (pipeContentEnum.MoveNext())
           {

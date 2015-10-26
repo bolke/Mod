@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ModBase.Interfaces
 {
-  public interface IObjectPipe
+  public interface IBasePipe
   {
     object PopObject();
     bool PushObject(object element);
