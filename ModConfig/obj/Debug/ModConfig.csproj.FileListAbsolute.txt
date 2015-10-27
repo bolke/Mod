@@ -1,0 +1,5 @@
+F:\rsync\projects\009_Mod\software\Mod\bin\build\ModConfig.dll
+F:\rsync\projects\009_Mod\software\Mod\bin\build\ModConfig.pdb
+F:\rsync\projects\009_Mod\software\Mod\ModConfig\obj\Debug\ModConfig.dll
+F:\rsync\projects\009_Mod\software\Mod\ModConfig\obj\Debug\ModConfig.pdb
+F:\rsync\projects\009_Mod\software\Mod\ModConfig\obj\Debug\ModConfig.csprojResolveAssemblyReference.cache
