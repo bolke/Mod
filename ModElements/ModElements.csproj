@@ -44,11 +44,12 @@
     <Compile Include="Modules\Abstracts\Initiator.cs" />
     <Compile Include="Modules\Abstracts\Lockable.cs" />
     <Compile Include="Modules\Abstracts\Runnable.cs" />
-    <Compile Include="Modules\Combinations\StreamPipe.cs" />
     <Compile Include="Modules\ComparablePipe.cs" />
     <Compile Include="Modules\Combinations\RunnableWorker.cs" />
     <Compile Include="Modules\Job.cs" />
     <Compile Include="Modules\Pipe.cs" />
+    <Compile Include="Modules\QueuePipe.cs" />
+    <Compile Include="Modules\StreamPipe.cs" />
     <Compile Include="Modules\ThreadRunnable.cs" />
     <Compile Include="Modules\Worker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

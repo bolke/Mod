@@ -56,6 +56,10 @@
       <Project>{048e7ef0-d4a3-4ee4-9620-b093dcf4b5b6}</Project>
       <Name>ModConfig</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ModElements\ModElements.csproj">
+      <Project>{f4a9c7b5-1b59-4246-9e29-06e2e0ccb682}</Project>
+      <Name>ModElements</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

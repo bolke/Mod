@@ -4,3 +4,6 @@ ModConsole/obj/
 bin/
 ModElements/obj/
  bin/
+ModGui/obj/
+ModConfig/obj/
+ModGui/Properties/
