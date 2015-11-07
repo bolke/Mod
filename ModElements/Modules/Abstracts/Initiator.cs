@@ -132,7 +132,8 @@ namespace Mod.Modules.Abstracts
           config.InitTypeParameters.Add(this.GetType().GenericTypeArguments[i]);
           i++;
         }
-        config.InitType = config.InitType.MakeGenericType(config.InitTypeParameters.ToArray());
+        if(config.InitType.IsGenericTypeDefinition)
+          config.InitType = config.InitType.MakeGenericType(config.InitTypeParameters.ToArray());
         property.SetValue(this, Activator.CreateInstance(config.InitType));
         result = true;
       }

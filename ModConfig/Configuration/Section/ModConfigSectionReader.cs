@@ -414,8 +414,11 @@ namespace Mod.Configuration.Section
       typeFactory.DeepSearch = true;
       typeFactory.LoadPreloadedAssemblies();
 
-      System.Configuration.Configuration configuration = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+      System.Configuration.Configuration configuration = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);      
       ModConfigSection section = configuration.GetSection(sectionName) as ModConfigSection;
+      
+      configuration.SaveAs(".\\somewhere\\external.xml", ConfigurationSaveMode.Full, true);
+
       if (section != null)
       {
         pluginsLoaded = LoadPlugins(section.PluginCollection);
@@ -429,7 +432,7 @@ namespace Mod.Configuration.Section
               IInitiator initiator = modules[i].Instance as IInitiator;
               if (initiator != null)
                 if ((initiator.Initialize() == false) && !initiator.IsInitialized)
-                  throw new ConfigurationErrorsException();
+                  throw new ConfigurationErrorsException("Couldn't load " + modules[i].Type);
             }
             result = true;
           }
@@ -447,7 +450,7 @@ namespace Mod.Configuration.Section
           runnable.Start();
       }
       return true;
-    }
+    }  
     #endregion
 
   }
