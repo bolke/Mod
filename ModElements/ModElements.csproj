@@ -49,7 +49,6 @@
     <Compile Include="Modules\Job.cs" />
     <Compile Include="Modules\Pipe.cs" />
     <Compile Include="Modules\QueuePipe.cs" />
-    <Compile Include="Modules\StreamPipe.cs" />
     <Compile Include="Modules\ThreadRunnable.cs" />
     <Compile Include="Modules\Worker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
