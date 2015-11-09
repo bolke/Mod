@@ -44,11 +44,11 @@
     <Compile Include="Modules\Abstracts\Initiator.cs" />
     <Compile Include="Modules\Abstracts\Lockable.cs" />
     <Compile Include="Modules\Abstracts\Runnable.cs" />
-    <Compile Include="Modules\ComparablePipe.cs" />
+    <Compile Include="Modules\EndPoints\ComparablePipe.cs" />
     <Compile Include="Modules\Combinations\RunnableWorker.cs" />
     <Compile Include="Modules\Job.cs" />
-    <Compile Include="Modules\Pipe.cs" />
-    <Compile Include="Modules\QueuePipe.cs" />
+    <Compile Include="Modules\EndPoints\Pipe.cs" />
+    <Compile Include="Modules\EndPoints\QueuePipe.cs" />
     <Compile Include="Modules\ThreadRunnable.cs" />
     <Compile Include="Modules\Worker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -58,6 +58,9 @@
       <Project>{048e7ef0-d4a3-4ee4-9620-b093dcf4b5b6}</Project>
       <Name>ModConfig</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Modules\Lines\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

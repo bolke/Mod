@@ -1,6 +1,7 @@
 ﻿using Mod.Configuration.Properties;
 using Mod.Interfaces;
 using Mod.Interfaces.Pipes;
+using Mod.Modules.EndPoints;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -12,7 +12,7 @@ using Mod.Interfaces.Pipes;
 using Mod.Modules.Abstracts;
 using Mod.Configuration.Modules;
 
-namespace Mod.Modules
+namespace Mod.Modules.EndPoints
 {
   [Configure(InitType = typeof(Pipe<IJob>))]
   public class Pipe<T>: Lockable, IPipe<T>

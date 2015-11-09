@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Mod.Modules
+namespace Mod.Modules.EndPoints
 {
   public class ComparablePipe<T>: Pipe<T>{
     public override bool Push(T element)
