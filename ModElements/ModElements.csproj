@@ -49,6 +49,7 @@
     <Compile Include="Modules\Job.cs" />
     <Compile Include="Modules\EndPoints\Pipe.cs" />
     <Compile Include="Modules\EndPoints\QueuePipe.cs" />
+    <Compile Include="Modules\Lines\PipeStream.cs" />
     <Compile Include="Modules\ThreadRunnable.cs" />
     <Compile Include="Modules\Worker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -59,9 +60,7 @@
       <Name>ModConfig</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Modules\Lines\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
