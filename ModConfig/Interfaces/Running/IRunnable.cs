@@ -49,7 +49,7 @@ namespace Mod.Interfaces
       set;
     }
 
-    [Configure("AutoStart", DefaultValue = false)]
+    [Configure(DefaultValue = false)]
     bool AutoStart
     {
       get;

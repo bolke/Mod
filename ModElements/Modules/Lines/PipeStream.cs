@@ -1,5 +1,6 @@
 ﻿using Mod.Configuration.Properties;
 using Mod.Interfaces;
+using Mod.Interfaces.Pipes;
 using Mod.Modules.Abstracts;
 using System;
 using System.Collections.Concurrent;
@@ -12,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace Mod.Modules.Lines
 {
-  public class PipeStream: Lockable, IBasePipe
+  public class PipeStream: Lockable, IBasePipe, IValve
   {
     private ConcurrentQueue<Object> toSend = new ConcurrentQueue<object>();
     private bool doWrite = true;
@@ -25,7 +26,9 @@ namespace Mod.Modules.Lines
     private byte[] dRead = null;
     private byte[] dWrite = null;
     private int chunkSizeRead = 4096;
-    private int chunkSizeWrite = 4096;    
+    private int chunkSizeWrite = 4096;
+
+    private bool autoOpen = false;
 
     [Configure(DefaultValue=4096)]
     public virtual int ChunkSizeRead{
@@ -73,7 +76,8 @@ namespace Mod.Modules.Lines
         formatter = new BinaryFormatter();
         dWrite = new byte[chunkSizeWrite];
         dRead = new byte[chunkSizeRead];
-        ReadNext();
+        if(autoOpen)
+          ReadNext();
         return true;
       }
       return false;
@@ -177,6 +181,62 @@ namespace Mod.Modules.Lines
         Console.WriteLine("catch write");
       }
     }
-  
+
+
+    public virtual bool IsOpen
+    {
+      get { lock(Padlock) return stream!=null? stream.CanRead || stream.CanWrite: false; }
+    }
+
+    public virtual bool IsClosed
+    {
+      get { return !IsOpen; }
+    }
+
+    public virtual bool CanRead
+    {
+      get { lock(Padlock) return stream!=null?stream.CanRead:false; }
+    }
+
+    public virtual bool CanWrite
+    {
+      get { lock (Padlock) return stream != null ? stream.CanWrite : false; }
+    }
+
+    [Configure(DefaultValue = false)]
+    public virtual bool AutoOpen
+    {
+      get
+      {
+        lock (Padlock) return autoOpen;
+      }
+      set
+      {
+        lock (Padlock) autoOpen = value;
+      }
+    }
+
+    public virtual bool Open()
+    {
+      lock (Padlock)
+      {
+        if (stream != null)
+        {
+          ReadNext();
+          return IsOpen;
+        }
+        return false;
+      }
+    }
+
+    public virtual bool Close()
+    {
+      lock (Padlock)
+      {
+        if(stream!=null)
+         stream.Close();
+        return IsClosed;
+      }
+    }
   }
 }

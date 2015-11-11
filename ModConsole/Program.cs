@@ -24,11 +24,16 @@ namespace ModConsole
 
       SerialPort sp = new SerialPort("COM3");
       SerialPort sp2 = new SerialPort("COM7");
-      sp2.Open();
-      sp.Open();
 
       PipeStream ps = new PipeStream();
       PipeStream ps2 = new PipeStream();
+
+      sp2.Open();
+      sp.Open();
+
+      ps.AutoOpen = true;
+      ps2.AutoOpen = true;
+
       ps2.Stream = sp2.BaseStream;
       ps.Stream = sp.BaseStream;
 
@@ -48,8 +53,8 @@ namespace ModConsole
         i++;
         pis.PushObject("cake");
         pis2.PushObject("is a lie");             
-        Thread.Sleep(100);    
-        if (i >= 10)
+        Thread.Sleep(10);    
+        if (i >= 100)
         {
           Thread.Sleep(100);    
           break;
@@ -58,9 +63,6 @@ namespace ModConsole
 
       sp.Close();
       sp2.Close();
-
-      //ModConfigSectionReader loader = new ModConfigSectionReader();
-      //loader.LoadAndRun();
 
       i = 0;
       while (i < 100)
@@ -73,6 +75,9 @@ namespace ModConsole
           Console.WriteLine(o.ToString());
         i++;
       }
+
+      //ModConfigSectionReader loader = new ModConfigSectionReader();
+      //loader.LoadAndRun();      
       Console.ReadLine();
     }
   }
