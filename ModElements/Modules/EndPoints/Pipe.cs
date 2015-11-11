@@ -18,6 +18,7 @@ namespace Mod.Modules.EndPoints
   public class Pipe<T>: Lockable, IPipe<T>
   {
     private IList<T> data = null;
+    private IBasePipe basePipe = null;
 
     [Configure(InitType = typeof(List<>))]
     public virtual IList<T> Data
@@ -33,14 +34,20 @@ namespace Mod.Modules.EndPoints
     }
 
     public virtual T Pop()
-    {
+    {      
       lock(Padlock)
       {
         T result = default(T);
-        if(data.Count > 0)
+        if (basePipe != this)
+          result = (T)basePipe.PopObject();
+        else
         {
-          result = data.First();
-          data.Remove(result);
+          result = default(T);
+          if (data.Count > 0)
+          {
+            result = data.First();
+            data.Remove(result);
+          }
         }
         return result;
       }
@@ -48,7 +55,13 @@ namespace Mod.Modules.EndPoints
 
     public virtual bool Push(T element)
     {
-      lock(Padlock) Data.Add(element);
+      lock (Padlock)
+      {
+        if (basePipe != this)
+          return basePipe.PushObject(element);        
+        else        
+          Data.Add(element);        
+      }     
       return true;
     }
 
@@ -60,6 +73,17 @@ namespace Mod.Modules.EndPoints
     public virtual bool FromConfig(ModuleConfig config)
     {
       throw new NotImplementedException();
+    }
+
+    public override bool Initialize()
+    {
+      if (base.Initialize())
+      {
+        if(basePipe == null)
+          basePipe = this;
+        return true;
+      }
+      return false;
     }
 
     public virtual IEnumerator<T> GetEnumerator()
@@ -136,12 +160,19 @@ namespace Mod.Modules.EndPoints
 
     public virtual object PopObject()
     {
-      lock(Padlock) return (object)Pop();
+      return Pop();
     }
 
     public virtual bool PushObject(object element)
     {
-      lock(Padlock) return Push((T)element);
+      return Push((T)element);
+    }
+
+    [Configure()]
+    public virtual IBasePipe BasePipe
+    {
+      get { lock (Padlock) return basePipe; }
+      set { lock(Padlock) basePipe = value; }
     }
   }
 }

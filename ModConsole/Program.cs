@@ -1,5 +1,7 @@
 ﻿using Mod.Configuration.Section;
 using Mod.Modules;
+using Mod.Modules.Combinations;
+using Mod.Modules.EndPoints;
 using Mod.Modules.Lines;
 using System;
 using System.Collections.Generic;
@@ -17,35 +19,60 @@ namespace ModConsole
   {
     static void Main(string[] args)
     {
-      /*
-      MemoryStream mem = new MemoryStream();
-      BinaryFormatter bif = new BinaryFormatter();
-      bif.Serialize(mem, "cake");
-      bif.Serialize(mem, "fart");
-      mem.Position = 0;
-      object k = bif.Deserialize(mem);
-      object l = bif.Deserialize(mem);
-      */
-      SerialPort sp = new SerialPort("COM11");
+      Pipe<String> pis = new Pipe<String>();
+      Pipe<String> pis2 = new Pipe<String>();
+
+      SerialPort sp = new SerialPort("COM3");
+      SerialPort sp2 = new SerialPort("COM7");
+      sp2.Open();
       sp.Open();
 
       PipeStream ps = new PipeStream();
-      //ps.Stream = new MemoryStream();
+      PipeStream ps2 = new PipeStream();
+      ps2.Stream = sp2.BaseStream;
       ps.Stream = sp.BaseStream;
+
+      pis.BasePipe = ps;
+      pis2.BasePipe = ps2;
+
+      pis.Initialize();
+      pis2.Initialize();
+
+      ps2.Initialize();
       ps.Initialize();
+
+      int i = 0;
+ 
       while (true)
       {
-
-        ps.PushObject("cake");
-        Thread.Sleep(1000);
-        ps.ReadNext();
-        Thread.Sleep(1000);
-        object o = ps.PopObject();
-        if(o != null)
-          Console.WriteLine(o.ToString());
+        i++;
+        pis.PushObject("cake");
+        pis2.PushObject("is a lie");             
+        Thread.Sleep(100);    
+        if (i >= 10)
+        {
+          Thread.Sleep(100);    
+          break;
+        }
       }
+
+      sp.Close();
+      sp2.Close();
+
       //ModConfigSectionReader loader = new ModConfigSectionReader();
       //loader.LoadAndRun();
+
+      i = 0;
+      while (i < 100)
+      {
+        object o = pis2.Pop();
+        if (o != null)
+          Console.WriteLine(o.ToString());
+        o = pis.Pop();
+        if (o != null)
+          Console.WriteLine(o.ToString());
+        i++;
+      }
       Console.ReadLine();
     }
   }

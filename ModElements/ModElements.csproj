@@ -44,6 +44,7 @@
     <Compile Include="Modules\Abstracts\Initiator.cs" />
     <Compile Include="Modules\Abstracts\Lockable.cs" />
     <Compile Include="Modules\Abstracts\Runnable.cs" />
+    <Compile Include="Modules\EndPoints\BasePipe.cs" />
     <Compile Include="Modules\EndPoints\ComparablePipe.cs" />
     <Compile Include="Modules\Combinations\RunnableWorker.cs" />
     <Compile Include="Modules\Job.cs" />

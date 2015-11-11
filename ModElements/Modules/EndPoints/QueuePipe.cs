@@ -1,4 +1,5 @@
 ﻿using Mod.Configuration.Properties;
+using Mod.Interfaces;
 using Mod.Interfaces.Pipes;
 using Mod.Modules.Abstracts;
 using System;
@@ -12,17 +13,21 @@ namespace Mod.Modules.EndPoints
 {
   public class QueuePipe<T> : Lockable, IQueuePipe<T>
   {
-    private ConcurrentQueue<T> queue = null;
+    private IBasePipe basePipe = null;    
 
-    [Configure(InitType=typeof(ConcurrentQueue<>))]
-    public virtual ConcurrentQueue<T> Queue{
-      get{ return queue;}
-      set{ lock(Padlock) queue = value; }    
+    [Configure(InitType=typeof(BasePipe))]
+    public virtual IBasePipe BasePipe
+    {
+      get { return basePipe; }
+      set
+      {
+        lock (Padlock) basePipe = value;
+      }
     }
 
     public override bool Initialize()
     {
-      return base.Initialize();
+      return base.Initialize();            
     }
 
     public override bool Cleanup()
@@ -31,16 +36,13 @@ namespace Mod.Modules.EndPoints
     }
 
     public virtual T Pop()
-    {
-      T result = default(T);
-      queue.TryDequeue(out result);
-      return result;
+    {      
+      return (T)basePipe.PopObject();     
     }
 
-    public bool Push(T element)
+    public virtual bool Push(T element)
     {
-      queue.Enqueue(element);
-      return true;
+      return basePipe.PushObject(element);      
     }
 
     public virtual Configuration.Modules.ModuleConfig ToConfig()
@@ -59,7 +61,7 @@ namespace Mod.Modules.EndPoints
     }
 
     public virtual bool PushObject(object element)
-    {
+    {           
       return Push((T)element);
     }
   }

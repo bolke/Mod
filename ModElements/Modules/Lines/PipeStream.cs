@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 namespace Mod.Modules.Lines
 {
   public class PipeStream: Lockable, IBasePipe
-  {    
+  {
     private ConcurrentQueue<Object> toSend = new ConcurrentQueue<object>();
     private bool doWrite = true;
     private bool doRead = true;
@@ -52,7 +52,6 @@ namespace Mod.Modules.Lines
       get { lock (Padlock) return writeStream; }
       set { lock (Padlock) writeStream = value; }
     }
-
 
     public virtual Type TargetType
     {
@@ -120,8 +119,8 @@ namespace Mod.Modules.Lines
           {
             doWrite = false;
             formatter.Serialize(writeStream, spaceMonkey);
-            int toWrite = writeStream.Read(dWrite, 0, dWrite.Length);            
             writeStream.Position = 0;
+            int toWrite = writeStream.Read(dWrite, 0, dWrite.Length);                        
             stream.BeginWrite(dWrite,0,toWrite,new AsyncCallback(CompleteWrite), null);            
           }
         }
@@ -145,6 +144,7 @@ namespace Mod.Modules.Lines
         if(readCnt > 0)
         {
           long position = readStream.Position;
+          readStream.Position = readStream.Length;
           readStream.Write(dRead, 0, readCnt);
           readStream.Position = position;
         }

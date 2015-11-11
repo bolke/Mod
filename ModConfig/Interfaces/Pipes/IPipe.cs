@@ -10,12 +10,6 @@ using System.Threading.Tasks;
 namespace Mod.Interfaces.Pipes
 {
   public interface IPipe<T> : IQueuePipe<T>, IList<T>
-  {
-    [Configure(InitType = typeof(List<>))]
-    IList<T> Data
-    {
-      get;
-      set;
-    }
+  {    
   }
 }
