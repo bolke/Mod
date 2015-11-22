@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.40629.0
+VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModConsole", "ModConsole\ModConsole.csproj", "{AFFFF8F4-0EF5-4A54-BB13-50682296FC29}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -15,8 +15,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModElements", "ModElements\
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModConfig", "ModConfig\ModConfig.csproj", "{048E7EF0-D4A3-4EE4-9620-B093DCF4B5B6}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModGui", "ModGui\ModGui.csproj", "{25F91789-E959-44C9-A30C-641405A7F4FB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -36,10 +34,6 @@ Global
 		{048E7EF0-D4A3-4EE4-9620-B093DCF4B5B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{048E7EF0-D4A3-4EE4-9620-B093DCF4B5B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{048E7EF0-D4A3-4EE4-9620-B093DCF4B5B6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{25F91789-E959-44C9-A30C-641405A7F4FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{25F91789-E959-44C9-A30C-641405A7F4FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{25F91789-E959-44C9-A30C-641405A7F4FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{25F91789-E959-44C9-A30C-641405A7F4FB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
