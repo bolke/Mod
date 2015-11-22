@@ -22,8 +22,8 @@ namespace ModConsole
       Pipe<String> pis = new Pipe<String>();
       Pipe<String> pis2 = new Pipe<String>();
 
-      SerialPort sp = new SerialPort("COM3");
-      SerialPort sp2 = new SerialPort("COM7");
+      SerialPort sp = new SerialPort("COM11");
+      SerialPort sp2 = new SerialPort("COM12");
 
       PipeStream ps = new PipeStream();
       PipeStream ps2 = new PipeStream();
