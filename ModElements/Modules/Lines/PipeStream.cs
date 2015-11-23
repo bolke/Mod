@@ -21,19 +21,26 @@ namespace Mod.Modules.Lines
     private Stream stream = null;
     private Stream readStream = null;
     private Stream writeStream = null;
+    private bool binaryData = true;
     private BinaryFormatter formatter = null;
     private Type targetType = null;        
     private byte[] dRead = null;
     private byte[] dWrite = null;
     private int chunkSizeRead = 4096;
     private int chunkSizeWrite = 4096;
-
     private bool autoOpen = false;
 
     [Configure(DefaultValue=4096)]
     public virtual int ChunkSizeRead{
       get{lock(Padlock) return chunkSizeRead;}
       set{lock(Padlock) chunkSizeRead = value;}
+    }
+
+    [Configure(DefaultValue=true)]
+    public virtual Boolean BinaryData
+    {
+      get { lock(Padlock) return binaryData; }
+      set { lock(Padlock) binaryData = value; }
     }
 
     [Configure(DefaultValue=4096)]
@@ -101,12 +108,17 @@ namespace Mod.Modules.Lines
 
     public virtual bool PushObject(object element)
     {
-      lock(Padlock){
-        Type t = element.GetType();
-        if(t.IsSerializable){
-          toSend.Enqueue(element);
-          WriteNext();
-          return true;
+      if(element != null)
+      {
+        lock(Padlock)
+        {
+          Type t = element.GetType();
+          if(t.IsSerializable)
+          {
+            toSend.Enqueue(element);
+            WriteNext();
+            return true;
+          }
         }
       }
       return false;
@@ -118,11 +130,11 @@ namespace Mod.Modules.Lines
       {
         if (doWrite)
         {          
-          object spaceMonkey = null;
-          if (toSend.TryDequeue(out spaceMonkey))
+          object objectToSend = null;
+          if (toSend.TryDequeue(out objectToSend))
           {
             doWrite = false;
-            formatter.Serialize(writeStream, spaceMonkey);
+            formatter.Serialize(writeStream, objectToSend);
             writeStream.Position = 0;
             int toWrite = writeStream.Read(dWrite, 0, dWrite.Length);                        
             stream.BeginWrite(dWrite,0,toWrite,new AsyncCallback(CompleteWrite), null);            
@@ -157,7 +169,6 @@ namespace Mod.Modules.Lines
       }
       catch
       {
-        Console.WriteLine("catch read");
       }
     }
 
@@ -178,7 +189,6 @@ namespace Mod.Modules.Lines
       }
       catch
       {
-        Console.WriteLine("catch write");
       }
     }
 
