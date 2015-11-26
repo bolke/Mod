@@ -40,6 +40,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interfaces\IWorker.cs" />
+    <Compile Include="Interfaces\Pipes\IPipe.cs" />
+    <Compile Include="Interfaces\Pipes\IQueuePipe.cs" />
+    <Compile Include="Interfaces\Pipes\IValve.cs" />
+    <Compile Include="Interfaces\Running\IExecutable.cs" />
+    <Compile Include="Interfaces\Running\IJob.cs" />
+    <Compile Include="Interfaces\Running\IRunnable.cs" />
+    <Compile Include="Interfaces\Running\IWorker.cs" />
     <Compile Include="Modules\Abstracts\Executable.cs" />
     <Compile Include="Modules\Abstracts\Initiator.cs" />
     <Compile Include="Modules\Abstracts\Lockable.cs" />
