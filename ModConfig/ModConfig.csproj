@@ -52,17 +52,10 @@
     <Compile Include="Configuration\Section\ModConfigSectionWriter.cs" />
     <Compile Include="Configuration\Types\TypeFabrication.cs" />
     <Compile Include="Configuration\Types\TypeFactory.cs" />
-    <Compile Include="Interfaces\Pipes\IValve.cs" />
-    <Compile Include="Interfaces\Pipes\IBasePipe.cs" />
     <Compile Include="Interfaces\Config\IConfigurable.cs" />
-    <Compile Include="Interfaces\Pipes\IQueuePipe.cs" />
-    <Compile Include="Interfaces\Running\IExecutable.cs" />
+    <Compile Include="Interfaces\Containers\IObjectContainer.cs" />
     <Compile Include="Interfaces\Config\IInitiator.cs" />
-    <Compile Include="Interfaces\Running\IJob.cs" />
     <Compile Include="Interfaces\Config\ILockable.cs" />
-    <Compile Include="Interfaces\Pipes\IPipe.cs" />
-    <Compile Include="Interfaces\Running\IRunnable.cs" />
-    <Compile Include="Interfaces\Running\IWorker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

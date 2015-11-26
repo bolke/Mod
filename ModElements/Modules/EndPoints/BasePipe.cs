@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Mod.Modules.EndPoints
 {
-  public class BasePipe: IBasePipe
+  public class BasePipe: IObjectContainer
   {
     private ConcurrentQueue<object> queue = new ConcurrentQueue<Object>();
     

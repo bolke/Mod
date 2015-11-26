@@ -11,6 +11,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using Mod.Interfaces.Containers;
 
 namespace Mod.Configuration.Section
 {
@@ -191,7 +192,7 @@ namespace Mod.Configuration.Section
       return result;
     }
 
-    protected virtual Boolean FillPipes()
+    protected virtual Boolean FillBuckets()
     {
       bool result = true;
       Dictionary<Guid, ModuleConfig>.Enumerator modInstEnum = moduleInstances.GetEnumerator();
@@ -200,9 +201,9 @@ namespace Mod.Configuration.Section
       while (modInstEnum.MoveNext())
       {
         module = modInstEnum.Current.Value;
-        if (module.IsBasePipe())
+        if (module.IsBucket())
         {
-          IBasePipe bucket = module.Instance as IBasePipe;
+          IObjectContainer bucket = module.Instance as IObjectContainer;
           IEnumerator pipeContentEnum = module.ModuleConfigCollection.GetEnumerator();
           while (pipeContentEnum.MoveNext())
           {
@@ -216,9 +217,9 @@ namespace Mod.Configuration.Section
       while (modRefEnum.MoveNext())
       {
         module = modRefEnum.Current.Value;
-        if (module.IsBasePipe())
+        if (module.IsBucket())
         {
-          IBasePipe bucket = module.Instance as IBasePipe;
+          IObjectContainer bucket = module.Instance as IObjectContainer;
           IEnumerator pipeContentEnum = module.ModuleConfigCollection.GetEnumerator();
           while (pipeContentEnum.MoveNext())
           {
@@ -332,7 +333,7 @@ namespace Mod.Configuration.Section
             result = result && ConnectReferences();            
             result = result && FillAttributes();
             result = result && FillProperties();
-            result = result && FillPipes();
+            result = result && FillBuckets();
           }
         }
       }
@@ -371,7 +372,7 @@ namespace Mod.Configuration.Section
             result = result && ConnectReferences();
             result = result && FillAttributes();
             result = result && FillProperties();
-            result = result && FillPipes();
+            result = result && FillBuckets();
           }
         }
       }
@@ -397,13 +398,6 @@ namespace Mod.Configuration.Section
           return true;
         }
       }
-      return false;
-    }
-
-    public Boolean LoadAndRun(string sectionName = "ModConfigSection")
-    {
-      if(Load(sectionName))
-        return Run();
       return false;
     }
 
@@ -441,7 +435,7 @@ namespace Mod.Configuration.Section
       return result;
     }
 
-    public Boolean Run()
+    /*public Boolean Run()
     {
       for (int i = 0; i < moduleInstances.Count; i++)
       {
@@ -450,7 +444,7 @@ namespace Mod.Configuration.Section
           runnable.Start();
       }
       return true;
-    }  
+    }  */
     #endregion
 
   }

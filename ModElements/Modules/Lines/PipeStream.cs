@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace Mod.Modules.Lines
 {
-  public class PipeStream: Lockable, IBasePipe, IValve
+  public class PipeStream: Lockable, IObjectContainer, IValve
   {
     private ConcurrentQueue<Object> toSend = new ConcurrentQueue<object>();
     private bool doWrite = true;

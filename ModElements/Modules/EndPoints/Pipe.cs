@@ -18,7 +18,7 @@ namespace Mod.Modules.EndPoints
   public class Pipe<T>: Lockable, IPipe<T>
   {
     private IList<T> data = null;
-    private IBasePipe basePipe = null;
+    private IObjectContainer basePipe = null;
 
     [Configure(InitType = typeof(List<>))]
     public virtual IList<T> Data
@@ -169,7 +169,7 @@ namespace Mod.Modules.EndPoints
     }
 
     [Configure()]
-    public virtual IBasePipe BasePipe
+    public virtual IObjectContainer BasePipe
     {
       get { lock (Padlock) return basePipe; }
       set { lock(Padlock) basePipe = value; }

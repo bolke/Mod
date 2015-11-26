@@ -13,10 +13,10 @@ namespace Mod.Modules.EndPoints
 {
   public class QueuePipe<T> : Lockable, IQueuePipe<T>
   {
-    private IBasePipe basePipe = null;    
+    private IObjectContainer basePipe = null;    
 
     [Configure(InitType=typeof(BasePipe))]
-    public virtual IBasePipe BasePipe
+    public virtual IObjectContainer BasePipe
     {
       get { return basePipe; }
       set

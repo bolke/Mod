@@ -1,6 +1,6 @@
 ﻿using Mod.Configuration.Properties;
 using Mod.Interfaces;
-using Mod.Interfaces.Pipes;
+using Mod.Interfaces.Containers;
 using System;
 using System.Collections;
 using System.Configuration;
@@ -148,7 +148,7 @@ namespace Mod.Configuration.Modules
       return HasProperty("Type") && !String.IsNullOrWhiteSpace(this["Type"] as string);
     }
 
-    public virtual Boolean IsBasePipe(Type instanceType = null, Type contentType = null)
+    public virtual Boolean IsBucket(Type instanceType = null, Type contentType = null)
     {
       Boolean result = false;
       if (Instance != null)
@@ -158,7 +158,7 @@ namespace Mod.Configuration.Modules
         Type[] interfaces = instanceType.GetInterfaces();
         for (int i = 0; i < interfaces.Length; i++)
         {
-          if (interfaces[i].Name.Equals(typeof(IBasePipe).Name) || IsBasePipe(interfaces[i], contentType))
+          if (interfaces[i].Name.Equals(typeof(IObjectContainer).Name) || IsBucket(interfaces[i], contentType))
           {
             if (contentType == null)
               return true;
