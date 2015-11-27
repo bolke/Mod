@@ -201,7 +201,7 @@ namespace Mod.Configuration.Section
       while (modInstEnum.MoveNext())
       {
         module = modInstEnum.Current.Value;
-        if (module.IsBucket())
+        if (module.IsObjectContainer())
         {
           IObjectContainer bucket = module.Instance as IObjectContainer;
           IEnumerator pipeContentEnum = module.ModuleConfigCollection.GetEnumerator();
@@ -217,7 +217,7 @@ namespace Mod.Configuration.Section
       while (modRefEnum.MoveNext())
       {
         module = modRefEnum.Current.Value;
-        if (module.IsBucket())
+        if (module.IsObjectContainer())
         {
           IObjectContainer bucket = module.Instance as IObjectContainer;
           IEnumerator pipeContentEnum = module.ModuleConfigCollection.GetEnumerator();

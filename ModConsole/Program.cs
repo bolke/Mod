@@ -2,6 +2,7 @@
 using Mod.Configuration.Section;
 using Mod.Interfaces;
 using Mod.Modules;
+using Mod.Modules.Abstracts;
 using Mod.Modules.Combinations;
 using Mod.Modules.EndPoints;
 using Mod.Modules.Lines;
@@ -23,6 +24,7 @@ namespace ModConsole
   {
     static void Main(string[] args)
     {
+      /*
       Pipe<String> pis = new Pipe<String>();
       Pipe<String> pis2 = new Pipe<String>();
 
@@ -50,7 +52,7 @@ namespace ModConsole
       ps2.Initialize();
       ps.Initialize();
 
-      /*while (true)
+      while (true)
       {
         ps2.PushObject(ps.PopObject());
         ps.PushObject(ps2.PopObject());
@@ -69,6 +71,11 @@ namespace ModConsole
           if((module.Instance as IRunnable) != null)
           {
             (module.Instance as IRunnable).Start();
+          }
+          if ((module.Instance as Initiator) != null)
+          {
+            ModuleConfig mc = (module.Instance as Initiator).ToConfig();
+            mc = mc;
           }
         }
       }

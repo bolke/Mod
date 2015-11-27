@@ -46,16 +46,6 @@ namespace Mod.Modules.EndPoints
       return basePipe.PushObject(element);      
     }
 
-    public virtual Configuration.Modules.ModuleConfig ToConfig()
-    {
-      throw new NotImplementedException();
-    }
-
-    public virtual bool FromConfig(Configuration.Modules.ModuleConfig config)
-    {
-      throw new NotImplementedException();
-    }
-
     public virtual object PopObject()
     {
       return Pop();

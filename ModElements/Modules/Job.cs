@@ -140,16 +140,6 @@ namespace Mod.Modules
       return true;
     }
 
-    public override ModuleConfig ToConfig()
-    {
-      throw new NotImplementedException();
-    }
-
-    public override bool FromConfig(ModuleConfig config)
-    {
-      throw new NotImplementedException();
-    }
-
     public virtual void Dispose()
     {
     }

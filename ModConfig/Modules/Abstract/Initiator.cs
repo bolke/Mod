@@ -1,4 +1,5 @@
-﻿using Mod.Configuration.Properties;
+﻿using Mod.Configuration.Modules;
+using Mod.Configuration.Properties;
 using Mod.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Mod.Modules.Abstracts
 {
-  public abstract class Initiator : IInitiator
+  public abstract class Initiator : IInitiator, IConfigurable
   {
     #region constructors
     public Initiator()
@@ -64,8 +65,9 @@ namespace Mod.Modules.Abstracts
       {
         Type type = this.GetType();
         PropertyInfo[] properties = type.GetProperties();
-        if (InitializeProperties(properties.GetEnumerator(), true)) {
-          if(InitializeProperties(properties.GetEnumerator()))
+        if (InitializeProperties(properties.GetEnumerator(), true))
+        {
+          if (InitializeProperties(properties.GetEnumerator()))
             IsInitialized = true;
         }
 
@@ -74,6 +76,7 @@ namespace Mod.Modules.Abstracts
 
       return false;
     }
+
     protected virtual bool InitializeProperty(PropertyInfo property)
     {
       bool result = false;
@@ -83,13 +86,16 @@ namespace Mod.Modules.Abstracts
         ConfigureAttribute configure = property.GetCustomAttribute(typeof(ConfigureAttribute)) as ConfigureAttribute;
         MethodInfo getMethod = property.GetGetMethod();
         object value = null;
-        if((getMethod != null) && (getMethod.GetParameters().Count() == 0))
+        if ((getMethod != null) && (getMethod.GetParameters().Count() == 0))
           value = property.GetValue(this);
 
-        if ((configure == null) && (value != null)) {
-          if((value as IInitiator) != null)
-            (value as IInitiator).Initialize();          
-        } else if ((configure != null) && (value == null)) {
+        if ((configure == null) && (value != null))
+        {
+          if ((value as IInitiator) != null)
+            (value as IInitiator).Initialize();
+        }
+        else if ((configure != null) && (value == null))
+        {
           if (configure.AutoInit())
             if (configure.InitTypeTemplateCnt > 0)
               InitializeTemplateTypes(configure, property);
@@ -100,7 +106,7 @@ namespace Mod.Modules.Abstracts
           value = property.GetValue(this);
         }
         if ((value as IInitiator) != null)
-          ((IInitiator)value).Initialize();        
+          ((IInitiator)value).Initialize();
         result = true;
       }
       return result;
@@ -114,9 +120,9 @@ namespace Mod.Modules.Abstracts
         PropertyInfo current = enumerator.Current as PropertyInfo;
         ConfigureAttribute configAttribute = (current.GetCustomAttribute(typeof(ConfigureAttribute)) as ConfigureAttribute);
         if (preInit && (configAttribute != null) && configAttribute.PreInit)
-          result = InitializeProperty(enumerator.Current as PropertyInfo);        
-        else if (((!preInit) && (configAttribute == null)) || ((configAttribute!=null) && (!configAttribute.PreInit)))          
-          result = InitializeProperty(enumerator.Current as PropertyInfo);                
+          result = InitializeProperty(enumerator.Current as PropertyInfo);
+        else if (((!preInit) && (configAttribute == null)) || ((configAttribute != null) && (!configAttribute.PreInit)))
+          result = InitializeProperty(enumerator.Current as PropertyInfo);
       }
       return result;
     }
@@ -132,14 +138,40 @@ namespace Mod.Modules.Abstracts
           config.InitTypeParameters.Add(this.GetType().GenericTypeArguments[i]);
           i++;
         }
-        if(config.InitType.IsGenericTypeDefinition)
+        if (config.InitType.IsGenericTypeDefinition)
           config.InitType = config.InitType.MakeGenericType(config.InitTypeParameters.ToArray());
         property.SetValue(this, Activator.CreateInstance(config.InitType));
         result = true;
       }
       return result;
     }
-    
+
     #endregion
+
+    public virtual ModuleConfig ToConfig()
+    {
+      ModuleConfig result = new ModuleConfig();
+      result.Type = this.GetType().AssemblyQualifiedName;
+      /*PropertyInfo[] properties = this.GetType().GetProperties();
+      List<ConfigureAttribute> configAttrs = new List<ConfigureAttribute>();
+
+      for (int i = 0; i < properties.Count(); i++)
+      {
+        ConfigureAttribute configAttribute = (properties[i].GetCustomAttribute(typeof(ConfigureAttribute)) as ConfigureAttribute);
+        if (configAttribute != null)
+        {
+          configAttribute.DefaultValue = properties[i].GetValue(this);
+          configAttrs.Add(configAttribute);
+        }
+      }
+        //gather properties from type
+       */ 
+      return result;      
+    }
+
+    public virtual bool FromConfig(ModuleConfig config)
+    {
+      throw new NotImplementedException();
+    }
   }
 }

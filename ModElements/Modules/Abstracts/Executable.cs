@@ -228,15 +228,5 @@ namespace Mod.Modules.Abstracts
       }
       return false;
     }
-
-    public virtual ModuleConfig ToConfig()
-    {
-      throw new NotImplementedException();
-    }
-
-    public virtual bool FromConfig(ModuleConfig config)
-    {
-      throw new NotImplementedException();
-    }
   }
 }
