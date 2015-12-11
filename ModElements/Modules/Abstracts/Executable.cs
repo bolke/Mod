@@ -150,7 +150,7 @@ namespace Mod.Modules.Abstracts
 
     public virtual bool ReadyToRun
     {
-      get { lock (Padlock) return IsEnabled && !IsFinished && ExecuteTick <= Tick; }
+      get { lock (Padlock) return IsEnabled && !IsFinished && Tick >= ExecuteTick; }
     }
 
     protected void ClockOverflowControl()

@@ -68,14 +68,14 @@ namespace ModConsole
 
         if(module != null)
         {
-          if((module.Instance as IRunnable) != null)
+          Console.WriteLine("");
+         /* if((module.Instance as IRunnable) != null)
           {
-            (module.Instance as IRunnable).Start();
-          }
+     //       (module.Instance as IRunnable).Start();
+          }*/
           if ((module.Instance as Initiator) != null)
           {
             ModuleConfig mc = (module.Instance as Initiator).ToConfig();
-            mc = mc;
           }
         }
       }

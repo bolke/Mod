@@ -41,6 +41,7 @@ namespace Mod.Modules.Abstracts
       get;
       set;
     }
+
     #endregion
 
     #region functions
@@ -152,20 +153,24 @@ namespace Mod.Modules.Abstracts
     {
       ModuleConfig result = new ModuleConfig();
       result.Type = this.GetType().AssemblyQualifiedName;
-      /*PropertyInfo[] properties = this.GetType().GetProperties();
+      
+      PropertyInfo[] properties = this.GetType().GetProperties();
       List<ConfigureAttribute> configAttrs = new List<ConfigureAttribute>();
 
+      List<ModuleConfig> 
       for (int i = 0; i < properties.Count(); i++)
       {
         ConfigureAttribute configAttribute = (properties[i].GetCustomAttribute(typeof(ConfigureAttribute)) as ConfigureAttribute);
         if (configAttribute != null)
         {
+          Console.Write(properties[i].Name + " ");
           configAttribute.DefaultValue = properties[i].GetValue(this);
           configAttrs.Add(configAttribute);
+          Console.Write(configAttribute.Key);
+          Console.WriteLine(" " + configAttribute.DefaultValue);
         }
       }
-        //gather properties from type
-       */ 
+      
       return result;      
     }
 
