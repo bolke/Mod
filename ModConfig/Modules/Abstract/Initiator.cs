@@ -157,7 +157,6 @@ namespace Mod.Modules.Abstracts
       PropertyInfo[] properties = this.GetType().GetProperties();
       List<ConfigureAttribute> configAttrs = new List<ConfigureAttribute>();
 
-      List<ModuleConfig> 
       for (int i = 0; i < properties.Count(); i++)
       {
         ConfigureAttribute configAttribute = (properties[i].GetCustomAttribute(typeof(ConfigureAttribute)) as ConfigureAttribute);
