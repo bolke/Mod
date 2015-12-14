@@ -9,6 +9,7 @@ using Mod.Modules.Lines;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.IO.Ports;
 using System.Linq;
@@ -27,20 +28,34 @@ namespace ModConsole
       ModConfigSectionReader loader = new ModConfigSectionReader();
       loader.Load();
 
-      for(int i = 0; i < loader.ModuleInstances.Count;i++ )
+      ModuleConfigCollection modules = new ModuleConfigCollection();
+      
+      for(var i = 0; i < loader.ModuleInstances.Count;i++ )
       {
         ModuleConfig module = loader.ModuleInstances.ElementAt(i).Value;
-
         if(module != null)
         {
-          List<ModuleConfig> modules = new List<ModuleConfig>();
           if ((module.Instance as Initiator) != null)
           {
-            ModuleConfig mc = (module.Instance as Initiator).ToConfig();
-            modules.Add(mc);
+            modules[modules.Count] = (module.Instance as Initiator).ToConfig(true);
           }
         }
       }
+
+      for(var i = 0; i < modules.Count; i++)
+      {
+        for(var j = 0; j < modules.Count; j++)
+        {
+          for(var k = 0; k < modules[i].ModuleConfigCollection.Count; k++) 
+          {
+            if(modules[i].ModuleConfigCollection[k].Instance == modules[j].Instance)
+            {
+              modules[i].ModuleConfigCollection[k] = modules[j];
+            }
+          }
+        }
+      }
+
       Console.ReadLine();
     }
   }

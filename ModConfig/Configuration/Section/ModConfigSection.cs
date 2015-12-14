@@ -4,26 +4,26 @@ using System.Configuration;
 
 namespace Mod.Configuration.Section
 {
-    public class ModConfigSection : ConfigurationSection
+  public class ModConfigSection: ConfigurationSection
+  {
+    [ConfigurationProperty("Plugins")]
+    [ConfigurationCollection(typeof(PluginConfig), AddItemName = "Plugin")]
+    public PluginConfigCollection PluginCollection
     {
-        [ConfigurationProperty("Plugins")]
-        [ConfigurationCollection(typeof(PluginConfig), AddItemName = "Plugin")]
-        public PluginConfigCollection PluginCollection
-        {
-            get
-            {
-                return (PluginConfigCollection)base["Plugins"];
-            }
-        }
-
-        [ConfigurationProperty("Modules")]
-        [ConfigurationCollection(typeof(ModuleConfig), AddItemName = "Module")]
-        public ModuleConfigCollection ModuleConfigCollection
-        {
-            get
-            {
-                return (ModuleConfigCollection)base["Modules"];
-            }
-        }        
+      get
+      {
+        return (PluginConfigCollection)base["Plugins"];
+      }
     }
+
+    [ConfigurationProperty("Modules")]
+    [ConfigurationCollection(typeof(ModuleConfig), AddItemName = "Module")]
+    public ModuleConfigCollection ModuleConfigCollection
+    {
+      get
+      {
+        return (ModuleConfigCollection)base["Modules"];
+      }
+    }
+  }
 }

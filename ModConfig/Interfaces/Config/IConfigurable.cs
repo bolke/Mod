@@ -4,7 +4,7 @@ namespace Mod.Interfaces
 {
   public interface IConfigurable
   {
-    ModuleConfig ToConfig();
+    ModuleConfig ToConfig(bool inDepth=false);
     bool FromConfig(ModuleConfig config);
   }
 }

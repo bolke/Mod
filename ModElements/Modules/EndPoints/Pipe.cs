@@ -66,16 +66,6 @@ namespace Mod.Modules.EndPoints
       return true;
     }
 
-    public virtual ModuleConfig ToConfig()
-    {
-      throw new NotImplementedException();
-    }
-
-    public virtual bool FromConfig(ModuleConfig config)
-    {
-      throw new NotImplementedException();
-    }
-
     public override bool Initialize()
     {
       if (base.Initialize())

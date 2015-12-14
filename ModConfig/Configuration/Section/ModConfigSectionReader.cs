@@ -404,15 +404,13 @@ namespace Mod.Configuration.Section
     public Boolean Load(string sectionName = "ModConfigSection")
     {
       bool result = false;
-      //!TODO cleaning of private variables, making it ready for loading, removing old loaded instances
+      
       typeFactory.DeepSearch = true;
       typeFactory.LoadPreloadedAssemblies();
 
       System.Configuration.Configuration configuration = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);      
       ModConfigSection section = configuration.GetSection(sectionName) as ModConfigSection;
       
-      configuration.SaveAs(".\\somewhere\\external.xml", ConfigurationSaveMode.Full, true);
-
       if (section != null)
       {
         pluginsLoaded = LoadPlugins(section.PluginCollection);

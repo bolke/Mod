@@ -157,36 +157,48 @@ namespace Mod.Modules.Abstracts
 
     #endregion
 
-    public virtual ModuleConfig ToConfig()
+    public virtual ModuleConfig ToConfig(bool inDepth = false)
     {
-      ModuleConfig result = new ModuleConfig();
-      result.Type = this.GetType().AssemblyQualifiedName;
-      PropertyInfo[] properties = this.GetType().GetProperties();
-
-      for (int i = 0; i < properties.Count(); i++)
+      if(IsInitialized)
       {
-        ConfigureAttribute configAttribute = (properties[i].GetCustomAttribute(typeof(ConfigureAttribute)) as ConfigureAttribute);
-        if (configAttribute != null)
+        ModuleConfig result = new ModuleConfig();
+        result.Type = this.GetType().AssemblyQualifiedName;
+        result.Instance = this;
+        PropertyInfo[] properties = this.GetType().GetProperties();
+
+        for(int i = 0; i < properties.Count(); i++)
         {
-          var propertyConfig = new PropertyConfig();
-          result.PropertyConfigCollection[result.PropertyConfigCollection.Count] = propertyConfig;
-          propertyConfig.Name = properties[i].Name;
-          object value = properties[i].GetValue(this);
-          if(IsInitialized)
-            value = properties[i].GetValue(this);
-          if(value != null)
+          ConfigureAttribute configAttribute = (properties[i].GetCustomAttribute(typeof(ConfigureAttribute)) as ConfigureAttribute);
+          if(configAttribute != null)
           {
-            propertyConfig.Type = value.GetType().FullName;
-            if((!value.GetType().IsClass) || (value.GetType() == typeof(string)))
+            var propertyConfig = new PropertyConfig();
+            result.PropertyConfigCollection[result.PropertyConfigCollection.Count] = propertyConfig;
+            propertyConfig.Name = properties[i].Name;
+            object value = properties[i].GetValue(this);
+            value = properties[i].GetValue(this);
+            if(value != null)
             {
-              propertyConfig.Value = value.ToString();
+              propertyConfig.Type = value.GetType().FullName;
+              if((!value.GetType().IsClass) || (value.GetType() == typeof(string)))
+              {
+                propertyConfig.Value = value.ToString();
+              }
+              else if(inDepth)
+              {
+                IConfigurable configurable = value as IConfigurable;
+                if(configurable != null)
+                {
+                  ModuleConfig moduleConfig = configurable.ToConfig();
+                  moduleConfig.Instance = value;
+                  result.ModuleConfigCollection[result.ModuleConfigCollection.Count] = moduleConfig;
+                }
+              }
             }
           }
-
         }
+        return result;
       }
-      
-      return result;      
+      return null;
     }
 
     public virtual bool FromConfig(ModuleConfig config)
