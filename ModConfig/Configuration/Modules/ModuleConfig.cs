@@ -131,8 +131,10 @@ namespace Mod.Configuration.Modules
           result = result && SetInstanceProperty(properties.Current as ModuleConfig);
         if (typeof(IInitiator).IsAssignableFrom(Instance.GetType()))
         {
-          if (!((IInitiator)Instance).IsInitialized)
+          if(!((IInitiator)Instance).IsInitialized)
+          {
             ((IInitiator)Instance).Initialize();
+          }
           result = result && ((IInitiator)Instance).IsInitialized;
         }
 

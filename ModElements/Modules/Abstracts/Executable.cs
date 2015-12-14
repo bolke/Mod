@@ -22,7 +22,7 @@ namespace Mod.Modules.Abstracts
     private uint executeLimit = 0;
     private uint interval = 0;
     private bool startImmediately = false;
-
+    
     [Configure(DefaultValue = 0)]
     public virtual uint ExecuteTick
     {

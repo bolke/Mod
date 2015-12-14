@@ -20,7 +20,7 @@ namespace Mod.Modules
     private string label = "";    
     #endregion
 
-    #region properties    
+    #region properties
     
     [Configure(DefaultValue = 0)]
     public virtual uint CrashCount

@@ -13,6 +13,8 @@ namespace Mod.Modules.Abstracts
 {
   public abstract class Initiator : IInitiator, IConfigurable
   {
+    private Guid uniqueId;
+
     #region constructors
     public Initiator()
     {
@@ -20,7 +22,6 @@ namespace Mod.Modules.Abstracts
       IsInitialized = false;
       AutoInitialize = false;
     }
-
     #endregion
 
     #region properties
@@ -42,6 +43,12 @@ namespace Mod.Modules.Abstracts
       set;
     }
 
+    [Configure(InitType=typeof(Guid))]
+    public virtual Guid UniqueId
+    {
+      get { return uniqueId; }
+      set { uniqueId = value; }
+    }
     #endregion
 
     #region functions
@@ -72,6 +79,7 @@ namespace Mod.Modules.Abstracts
             IsInitialized = true;
         }
 
+        UniqueId = Guid.NewGuid();
         return IsInitialized;
       }
 
@@ -153,20 +161,28 @@ namespace Mod.Modules.Abstracts
     {
       ModuleConfig result = new ModuleConfig();
       result.Type = this.GetType().AssemblyQualifiedName;
-      
       PropertyInfo[] properties = this.GetType().GetProperties();
-      List<ConfigureAttribute> configAttrs = new List<ConfigureAttribute>();
 
       for (int i = 0; i < properties.Count(); i++)
       {
         ConfigureAttribute configAttribute = (properties[i].GetCustomAttribute(typeof(ConfigureAttribute)) as ConfigureAttribute);
         if (configAttribute != null)
         {
-          Console.Write(properties[i].Name + " ");
-          configAttribute.DefaultValue = properties[i].GetValue(this);
-          configAttrs.Add(configAttribute);
-          Console.Write(configAttribute.Key);
-          Console.WriteLine(" " + configAttribute.DefaultValue);
+          var propertyConfig = new PropertyConfig();
+          result.PropertyConfigCollection[result.PropertyConfigCollection.Count] = propertyConfig;
+          propertyConfig.Name = properties[i].Name;
+          object value = properties[i].GetValue(this);
+          if(IsInitialized)
+            value = properties[i].GetValue(this);
+          if(value != null)
+          {
+            propertyConfig.Type = value.GetType().FullName;
+            if((!value.GetType().IsClass) || (value.GetType() == typeof(string)))
+            {
+              propertyConfig.Value = value.ToString();
+            }
+          }
+
         }
       }
       
