@@ -18,6 +18,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Xml;
 
 namespace ModConsole
 {
@@ -50,11 +51,20 @@ namespace ModConsole
           {
             if(modules[i].ModuleConfigCollection[k].Instance == modules[j].Instance)
             {
-              modules[i].ModuleConfigCollection[k] = modules[j];
+    //          modules[i].ModuleConfigCollection[k] = modules[j];
             }
           }
         }
       }
+
+      XmlWriter writer = XmlWriter.Create(@"f:/file.xml");
+      
+      ModConfigSection mcf = new ModConfigSection();
+      for(var i = 0; i < modules.Count; i++)
+        mcf.ModuleConfigCollection[i] = modules[i];
+      mcf.SerializeSection(writer);
+
+      writer.Close();
 
       Console.ReadLine();
     }

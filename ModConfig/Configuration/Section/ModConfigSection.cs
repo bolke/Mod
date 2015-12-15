@@ -1,6 +1,7 @@
 ﻿using Mod.Configuration.Modules;
 using Mod.Configuration.Plugins;
 using System.Configuration;
+using System.Xml;
 
 namespace Mod.Configuration.Section
 {
@@ -25,5 +26,16 @@ namespace Mod.Configuration.Section
         return (ModuleConfigCollection)base["Modules"];
       }
     }
+
+    public virtual void DeserializeSection(XmlReader reader)
+    {
+      base.DeserializeSection(reader);
+    }
+
+    public virtual bool SerializeSection(XmlWriter writer)
+    {
+      return base.SerializeToXmlElement(writer, "ModConfigSection");
+    }
+
   }
 }
