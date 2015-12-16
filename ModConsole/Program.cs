@@ -19,6 +19,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Xml;
+using System.Xml.Serialization;
 
 namespace ModConsole
 {
@@ -56,16 +57,38 @@ namespace ModConsole
           }
         }
       }
-
+      /*
       XmlWriter writer = XmlWriter.Create(@"f:/file.xml");
       
       ModConfigSection mcf = new ModConfigSection();
       for(var i = 0; i < modules.Count; i++)
         mcf.ModuleConfigCollection[i] = modules[i];
       mcf.SerializeSection(writer);
-
       writer.Close();
+      */
 
+      ModConfigSection mcf = new ModConfigSection();
+      for(var i = 0; i < modules.Count; i++)
+        mcf.ModuleConfigCollection[i] = modules[i];
+
+      StringBuilder sb = new StringBuilder();
+      StringWriter sw = new StringWriter(sb);
+      XmlTextWriter tw = new XmlTextWriter(sw);
+
+      tw.Formatting = Formatting.Indented;
+
+      mcf.SerializeSection(tw);
+      tw.Close();
+      /*XmlReader reader = XmlReader.Create(new StreamReader(@"f:/file.xml"));
+      reader.MoveToContent();
+      ModConfigSection rmcf = new ModConfigSection();
+      rmcf.DeserializeSection(reader);
+      reader.Close();*/
+
+      File.AppendAllText(@"f:/file.xml", sb.ToString());
+      
+      //Console.WriteLine(sb.ToString());
+      
       Console.ReadLine();
     }
   }
