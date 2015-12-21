@@ -92,10 +92,20 @@ namespace ModConsole
 
             //Console.WriteLine(sb.ToString());
 
+            string saveFolder = @"f:/save_file";
+            string oldSave = @"/001";
+            string newSave = @"/002";
+            string oldFile = saveFolder + oldSave + "/001.config";
+            string newFile = saveFolder + newSave + "/002.config";
+
             ExeConfigurationFileMap configMap = new ExeConfigurationFileMap();
-            configMap.ExeConfigFilename = @"ModConsole.vshost.exe.config";
+
+            configMap.ExeConfigFilename = oldFile;
             Configuration config = ConfigurationManager.OpenMappedExeConfiguration(configMap, ConfigurationUserLevel.None);
             ModConfigSection mm = config.GetSection("ModConfigSection") as ModConfigSection;
+
+            System.IO.Directory.CreateDirectory(saveFolder + newSave);
+            config.SaveAs(newFile, ConfigurationSaveMode.Minimal);
             Console.ReadLine();
         }
     }
