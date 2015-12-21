@@ -27,36 +27,38 @@ namespace ModConsole
     {
         static void Main(string[] args)
         {
+            /*
             ModConfigSectionReader loader = new ModConfigSectionReader();
             loader.Load();
 
             ModuleConfigCollection modules = new ModuleConfigCollection();
 
-            for (var i = 0; i < loader.ModuleInstances.Count; i++)
+            for(var i = 0; i < loader.ModuleInstances.Count; i++)
             {
                 ModuleConfig module = loader.ModuleInstances.ElementAt(i).Value;
-                if (module != null)
+                if(module != null)
                 {
-                    if ((module.Instance as Initiator) != null)
+                    if((module.Instance as Initiator) != null)
                     {
                         modules[modules.Count] = (module.Instance as Initiator).ToConfig(true);
                     }
                 }
             }
 
-            for (var i = 0; i < modules.Count; i++)
+            for(var i = 0; i < modules.Count; i++)
             {
-                for (var j = 0; j < modules.Count; j++)
+                for(var j = 0; j < modules.Count; j++)
                 {
-                    for (var k = 0; k < modules[i].ModuleConfigCollection.Count; k++)
+                    for(var k = 0; k < modules[i].ModuleConfigCollection.Count; k++)
                     {
-                        if (modules[i].ModuleConfigCollection[k].Instance == modules[j].Instance)
+                        if(modules[i].ModuleConfigCollection[k].Instance == modules[j].Instance)
                         {
                             //          modules[i].ModuleConfigCollection[k] = modules[j];
                         }
                     }
                 }
             }
+             */
             /*
             XmlWriter writer = XmlWriter.Create(@"f:/file.xml");
       
@@ -66,16 +68,10 @@ namespace ModConsole
             mcf.SerializeSection(writer);
             writer.Close();
             */
-
+            /*
             ModConfigSection mcf = new ModConfigSection();
-            for (var i = 0; i < modules.Count; i++)
-            {
+            for(var i = 0; i < modules.Count; i++)
                 mcf.ModuleConfigCollection[i] = modules[i];
-            }
-            for (var i = 0; i < loader.Plugins.Count; i++)
-            {
-                mcf.PluginCollection[i] = loader.Plugins[i];
-            }
 
             StringBuilder sb = new StringBuilder();
             StringWriter sw = new StringWriter(sb);
@@ -85,16 +81,21 @@ namespace ModConsole
 
             mcf.SerializeSection(tw);
             tw.Close();
+             */
             /*XmlReader reader = XmlReader.Create(new StreamReader(@"f:/file.xml"));
             reader.MoveToContent();
             ModConfigSection rmcf = new ModConfigSection();
             rmcf.DeserializeSection(reader);
             reader.Close();*/
 
-            File.AppendAllText(@"f:/file.xml", sb.ToString());
+            //File.AppendAllText(@"f:/file.xml", sb.ToString());
 
             //Console.WriteLine(sb.ToString());
 
+            ExeConfigurationFileMap configMap = new ExeConfigurationFileMap();
+            configMap.ExeConfigFilename = @"ModConsole.vshost.exe.config";
+            Configuration config = ConfigurationManager.OpenMappedExeConfiguration(configMap, ConfigurationUserLevel.None);
+            ModConfigSection mm = config.GetSection("ModConfigSection") as ModConfigSection;
             Console.ReadLine();
         }
     }
