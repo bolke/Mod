@@ -25,8 +25,9 @@ namespace Mod.Configuration.Plugins
 
         protected override ConfigurationElement CreateNewElement()
         {
-            _elements.Add(new PluginConfig());
-            return _elements.Last();
+            PluginConfig result = new PluginConfig();
+            _elements.Add(result);
+            return result;
         }
 
         protected override object GetElementKey(ConfigurationElement element)

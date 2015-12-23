@@ -103,9 +103,13 @@ namespace ModConsole
             configMap.ExeConfigFilename = oldFile;
             Configuration config = ConfigurationManager.OpenMappedExeConfiguration(configMap, ConfigurationUserLevel.None);
             ModConfigSection mm = config.GetSection("ModConfigSection") as ModConfigSection;
-
+            
             System.IO.Directory.CreateDirectory(saveFolder + newSave);
             config.SaveAs(newFile, ConfigurationSaveMode.Minimal);
+
+            ModConfigSectionWriter writer = new ModConfigSectionWriter();
+            writer.ModConfigSection = mm;
+            writer.Save("nipple", @"f:/");
             Console.ReadLine();
         }
     }
