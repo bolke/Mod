@@ -2,21 +2,21 @@
 
 namespace Mod.Interfaces
 {
-  public interface ILockable : IInitiator
-  {
-    [Configure(PreInit = true, InitType = typeof(object))]
-    object Padlock
+    public interface ILockable: IInitiator
     {
-      get;
-      set;
-    }
+        [Configure(PreInit = true, InitType = typeof(object))]
+        object Padlock
+        {
+            get;
+            set;
+        }
 
-    bool IsLocked
-    {
-      get;
-    }
+        bool IsLocked
+        {
+            get;
+        }
 
-    bool Lock();
-    bool Unlock();
-  }
+        bool Lock();
+        bool Unlock();
+    }
 }

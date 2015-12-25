@@ -3,7 +3,7 @@ using System.Configuration;
 
 namespace Mod.Configuration.Plugins
 {
-    public class PluginConfigCollection : ConfigurationElementCollection
+    public class PluginConfigCollection: ConfigurationElementCollection
     {
         private List<PluginConfig> _elements = new List<PluginConfig>();
 
@@ -12,9 +12,9 @@ namespace Mod.Configuration.Plugins
             get { return (PluginConfig)BaseGet(index); }
             set
             {
-                if ((index >= 0) && (index < Count))
+                if((index >= 0) && (index < Count))
                 {
-                    if (BaseGet(index) != null)
+                    if(BaseGet(index) != null)
                     {
                         BaseRemoveAt(index);
                     }

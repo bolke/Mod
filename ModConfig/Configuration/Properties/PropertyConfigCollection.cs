@@ -4,38 +4,38 @@ using System.Linq;
 
 namespace Mod.Configuration.Properties
 {
-  public class PropertyConfigCollection:  ConfigurationElementCollection
-  {
-    private List<PropertyConfig> _elements = new List<PropertyConfig>();
-
-    public PropertyConfig this[int index]
+    public class PropertyConfigCollection: ConfigurationElementCollection
     {
-      get { return (PropertyConfig)BaseGet(index); }
-      set 
-      {
-        if ((index >= 0) && (index < Count))
+        private List<PropertyConfig> _elements = new List<PropertyConfig>();
+
+        public PropertyConfig this[int index]
         {
-          if (BaseGet(index) != null)
-            BaseRemoveAt(index);
+            get { return (PropertyConfig)BaseGet(index); }
+            set
+            {
+                if((index >= 0) && (index < Count))
+                {
+                    if(BaseGet(index) != null)
+                        BaseRemoveAt(index);
+                }
+                BaseAdd(index, value);
+            }
         }
-        BaseAdd(index, value);
-      }
-    }
 
-    protected override bool IsElementName(string elementName)
-    {
-      return true;
-    }
+        protected override bool IsElementName(string elementName)
+        {
+            return true;
+        }
 
-    protected override ConfigurationElement CreateNewElement()
-    {
-      _elements.Add(new PropertyConfig());
-      return _elements.Last();
-    }
+        protected override ConfigurationElement CreateNewElement()
+        {
+            _elements.Add(new PropertyConfig());
+            return _elements.Last();
+        }
 
-    protected override object GetElementKey(ConfigurationElement element)
-    {
-      return ((PropertyConfig)element).UniqueId;
+        protected override object GetElementKey(ConfigurationElement element)
+        {
+            return ((PropertyConfig)element).UniqueId;
+        }
     }
-  }
 }

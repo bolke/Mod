@@ -8,77 +8,77 @@ using System.Threading.Tasks;
 
 namespace Mod.Modules.Abstracts
 {
-  public abstract class Lockable : Initiator, ILockable
-  {
-    private object padlock = new Object();
-
-    public virtual object Padlock
+    public abstract class Lockable: Initiator, ILockable
     {
-      get
-      {
-        return padlock;
-      }
-      set
-      {
-        if (value != null)
+        private object padlock = new Object();
+
+        public virtual object Padlock
         {
-          if (padlock != null)
-            lock (padlock)
-              padlock = value;
-          else
-            padlock = value;
+            get
+            {
+                return padlock;
+            }
+            set
+            {
+                if(value != null)
+                {
+                    if(padlock != null)
+                        lock(padlock)
+                            padlock = value;
+                    else
+                        padlock = value;
+                }
+            }
         }
-      }
-    }
 
-    public virtual bool IsLocked
-    {
-      get
-      {
-        if (Monitor.TryEnter(Padlock))
+        public virtual bool IsLocked
         {
-          Unlock();
-          return false;
+            get
+            {
+                if(Monitor.TryEnter(Padlock))
+                {
+                    Unlock();
+                    return false;
+                }
+                return true;
+            }
         }
-        return true;
-      }
-    }
 
-    public Lockable()
-    {
-    }
+        public Lockable()
+        {
+        }
 
-    public override bool Initialize()
-    {
-      if (base.Initialize())
-      {
-        padlock = new Object();
-        return true;
-      }
-      return false;
-    }
+        public override bool Initialize()
+        {
+            if(base.Initialize())
+            {
+                padlock = new Object();
+                return true;
+            }
+            return false;
+        }
 
-    public override bool Cleanup()
-    {
-      if (IsInitialized)
-      {
-        padlock = new Object();
-        return base.Cleanup();
-      }
-      return false;
-    }
+        public override bool Cleanup()
+        {
+            if(IsInitialized)
+            {
+                padlock = new Object();
+                return base.Cleanup();
+            }
+            return false;
+        }
 
-    public virtual bool Lock()
-    {
-      bool result = false;
-      Monitor.Enter(Padlock, ref result);
-      return result;
-    }
+        public virtual bool Lock()
+        {
+            bool result = false;
+            Monitor.Enter(Padlock, ref result);
+            return result;
+        }
 
-    public virtual bool Unlock()
-    {
-      Monitor.Exit(Padlock);
-      return true;
+        public virtual bool Unlock()
+        {
+            Monitor.Exit(Padlock);
+            return true;
+        }
     }
-  }
 }

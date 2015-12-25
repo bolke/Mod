@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Mod.Interfaces.Containers
 {
-  public interface IObjectContainer
-  {
-    object PopObject();
-    bool PushObject(object element);
-  }
+    public interface IObjectContainer
+    {
+        object PopObject();
+        bool PushObject(object element);
+    }
 }

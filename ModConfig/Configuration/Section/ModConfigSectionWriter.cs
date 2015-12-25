@@ -11,7 +11,6 @@ namespace Mod.Configuration.Section
 {
     public class ModConfigSectionWriter
     {
-
         public ModConfigSection ModConfigSection { get; set; }
 
         public ModConfigSectionWriter()
@@ -25,10 +24,11 @@ namespace Mod.Configuration.Section
             {
                 try
                 {
-                    directory = directory.Replace('\\','/');
+                    directory = directory.Replace('\\', '/');
                     System.IO.Directory.CreateDirectory(directory);
                     return true;
-                }catch
+                }
+                catch
                 {
                     //stuff
                 }
@@ -40,13 +40,14 @@ namespace Mod.Configuration.Section
         {
             if(ModConfigSection != null)
             {
-                if(CreateDirectory(directory)){
+                if(CreateDirectory(directory))
+                {
                     System.Text.StringBuilder sb = new StringBuilder();
                     sb.AppendLine("<?xml version=\"1.0\" encoding=\"utf-8\" ?>");
                     sb.AppendLine("<configuration>");
                     sb.AppendLine("<section name=\"ModConfigSection\" type=\"Mod.Configuration.Section.ModConfigSection, ModConfig\" />");
                     sb.AppendLine("</configuration>");
-                    File.WriteAllText(directory + "temp.config",sb.ToString());
+                    File.WriteAllText(directory + "temp.config", sb.ToString());
 
                     StringWriter sw = new StringWriter();
                     XmlWriter x = XmlWriter.Create(sw);
@@ -61,7 +62,7 @@ namespace Mod.Configuration.Section
 
                     System.Configuration.Configuration config = ConfigurationManager.OpenMappedExeConfiguration(configMap, ConfigurationUserLevel.None);
                     config.SaveAs(directory + "sdfsfsd.config", ConfigurationSaveMode.Modified);
-                 //   config.SaveAs(directory + newFile, ConfigurationSaveMode.Minimal);
+                    //   config.SaveAs(directory + newFile, ConfigurationSaveMode.Minimal);
                     return true;
                 }
             }

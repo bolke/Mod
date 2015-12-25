@@ -53,6 +53,7 @@
     <Compile Include="Configuration\Types\TypeFabrication.cs" />
     <Compile Include="Configuration\Types\TypeFactory.cs" />
     <Compile Include="Interfaces\Config\IConfigurable.cs" />
+    <Compile Include="Interfaces\Config\IUnique.cs" />
     <Compile Include="Interfaces\Containers\IObjectContainer.cs" />
     <Compile Include="Interfaces\Config\IInitiator.cs" />
     <Compile Include="Interfaces\Config\ILockable.cs" />
