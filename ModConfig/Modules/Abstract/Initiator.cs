@@ -56,7 +56,6 @@ namespace Mod.Modules.Abstracts
         {
             if(IsInitialized)
             {
-                //!TODO clean all properties 
                 IsInitialized = false;
                 return !IsInitialized;
             }
@@ -188,7 +187,7 @@ namespace Mod.Modules.Abstracts
                                 IConfigurable configurable = value as IConfigurable;
                                 if(configurable != null)
                                 {
-                                    ModuleConfig moduleConfig = configurable.ToConfig();
+                                    ModuleConfig moduleConfig = configurable.ToConfig(false);
                                     moduleConfig.Instance = value;
                                     result.ModuleConfigCollection[result.ModuleConfigCollection.Count] = moduleConfig;
                                 }

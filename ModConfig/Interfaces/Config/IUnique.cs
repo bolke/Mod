@@ -11,7 +11,6 @@ namespace Mod.Interfaces.Config
         Guid UniqueId
         {
             get;
-            set;
         }
     }
 }

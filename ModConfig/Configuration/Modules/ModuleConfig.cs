@@ -1,5 +1,6 @@
 ﻿using Mod.Configuration.Properties;
 using Mod.Interfaces;
+using Mod.Interfaces.Config;
 using Mod.Interfaces.Containers;
 using System;
 using System.Collections;
@@ -9,7 +10,7 @@ using System.Xml;
 
 namespace Mod.Configuration.Modules
 {
-    public class ModuleConfig: ConfigurationElement
+    public class ModuleConfig: ConfigurationElement, IUnique
     {
         #region variables
         private Guid uniqueId;
@@ -39,6 +40,14 @@ namespace Mod.Configuration.Modules
             set;
         }
 
+        public Guid UniqueId
+        {
+            get
+            {
+                return uniqueId;
+            }
+        }
+
         [ConfigurationProperty("Modules")]
         [ConfigurationCollection(typeof(ModuleConfig), AddItemName = "Module")]
         public ModuleConfigCollection ModuleConfigCollection
@@ -60,11 +69,6 @@ namespace Mod.Configuration.Modules
         {
             get { return (String)this["Type"]; }
             set { this["Type"] = value; }
-        }
-
-        public Guid UniqueId
-        {
-            get { return uniqueId; }
         }
 
         #endregion
@@ -296,6 +300,5 @@ namespace Mod.Configuration.Modules
             return result;
         }
         #endregion
-
     }
 }
