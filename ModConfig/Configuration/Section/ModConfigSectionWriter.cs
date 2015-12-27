@@ -46,6 +46,7 @@ namespace Mod.Configuration.Section
                 settings.IndentChars = "    ";
                 StringWriter stringWriter = new StringWriter();
                 XmlWriter xmlWriter = XmlWriter.Create(stringWriter, settings);
+                //if(ModConfigSection.SerializeElement(xmlWriter))
                 if(ModConfigSection.SerializeSection(xmlWriter))
                 {
                     xmlWriter.Flush();

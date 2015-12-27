@@ -114,13 +114,16 @@ namespace ModConsole
              */
 
             ModConfigSectionReader mcr = new ModConfigSectionReader();
-            ModConfigSectionWriter mcw = new ModConfigSectionWriter();
+        //    ModConfigSectionWriter mcw = new ModConfigSectionWriter();
 
-            mcr.Load();
+       //     mcr.Load();
             ModConfigSection mcs = mcr.Section;
-            mcw.ModConfigSection = mcs;
+       //     mcw.ModConfigSection = mcs;
 
-            mcw.Save("saved.xml");
+       //     mcw.Save("saved.xml");
+
+            mcr = new ModConfigSectionReader();
+            mcr.LoadSection("./saved.xml");
             Console.ReadLine();
         }
     }

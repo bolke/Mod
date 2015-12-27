@@ -28,15 +28,24 @@ namespace Mod.Configuration.Section
             }
         }
 
-        public virtual void DeserializeSection(XmlReader reader)
+        public virtual void DeserializeSection(XmlReader xmlReader)
         {
-            base.DeserializeSection(reader);
+            base.DeserializeSection(xmlReader);
+        }
+
+        public virtual void DeserializeElement(XmlReader xmlReader)
+        {
+            base.DeserializeElement(xmlReader, false);
         }
 
         public virtual bool SerializeSection(XmlWriter writer)
         {
+            return base.SerializeToXmlElement(writer, "ModConfigSection");
+        }
+
+        public virtual bool SerializeElement(XmlWriter writer)
+        {
             return this.SerializeElement(writer, false);
-          //  return base.SerializeToXmlElement(writer, "ModConfigSection");
         }
 
     }

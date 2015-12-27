@@ -12,13 +12,14 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Mod.Interfaces.Containers;
+using System.Xml;
 
 namespace Mod.Configuration.Section
 {
     public class ModConfigSectionReader
     {
         #region variables
-        private ModConfigSection section = null;
+        private ModConfigSection modConfigSection = null;
         private ModuleConfigCollection modules = null;
         private Dictionary<Guid, ModuleConfig> moduleInstances = new Dictionary<Guid, ModuleConfig>();
         private Boolean modulesLoaded = false;
@@ -47,11 +48,11 @@ namespace Mod.Configuration.Section
         {
             get
             {
-                return section;
+                return modConfigSection;
             }
             set
             {
-                section = value;
+                modConfigSection = value;
             }
         }
 
@@ -100,7 +101,7 @@ namespace Mod.Configuration.Section
         #endregion
 
         #region functions
-        protected virtual Boolean ConfigureInstances()
+        protected virtual bool ConfigureInstances()
         {
             bool result = true;
             Dictionary<Guid, ModuleConfig>.Enumerator modInstEnum = moduleInstances.GetEnumerator();
@@ -118,7 +119,7 @@ namespace Mod.Configuration.Section
             return result;
         }
 
-        protected virtual Boolean ConnectReferences()
+        protected virtual bool ConnectReferences()
         {
             bool result = false;
             Dictionary<Guid, ModuleConfig>.Enumerator modInstEnum = moduleInstances.GetEnumerator();
@@ -139,7 +140,7 @@ namespace Mod.Configuration.Section
             return result;
         }
 
-        protected virtual Boolean ConnectPropertyReferences()
+        protected virtual bool ConnectPropertyReferences()
         {
             bool result = false;
             Dictionary<Guid, PropertyConfig>.Enumerator propInstEnum = propertyReferences.GetEnumerator();
@@ -165,7 +166,7 @@ namespace Mod.Configuration.Section
             return result;
         }
 
-        protected virtual Boolean CreateInstance(ModuleConfig config)
+        protected virtual bool CreateInstance(ModuleConfig config)
         {
             TypeFabrication moduleType = typeFactory.Fabricate(config.Type);
             moduleType.BaseType = typeFactory.FindBaseType(moduleType);
@@ -183,7 +184,7 @@ namespace Mod.Configuration.Section
             return config.Instance != null;
         }
 
-        protected virtual Boolean CreateInstances(IEnumerator moduleEnum, int depth, ModuleConfig parent = null)
+        protected virtual bool CreateInstances(IEnumerator moduleEnum, int depth, ModuleConfig parent = null)
         {
             bool result = true;
             while(moduleEnum.MoveNext())
@@ -205,7 +206,7 @@ namespace Mod.Configuration.Section
             return result;
         }
 
-        protected virtual Boolean FillBuckets()
+        protected virtual bool FillBuckets()
         {
             bool result = true;
             Dictionary<Guid, ModuleConfig>.Enumerator modInstEnum = moduleInstances.GetEnumerator();
@@ -245,7 +246,7 @@ namespace Mod.Configuration.Section
             return result;
         }
 
-        protected Boolean FillAttributes()
+        protected bool FillAttributes()
         {
             bool result = true;
             Dictionary<Guid, ModuleConfig>.Enumerator modInstEnum;
@@ -259,7 +260,7 @@ namespace Mod.Configuration.Section
             return result;
         }
 
-        protected Boolean FillAttributes(ModuleConfig module)
+        protected bool FillAttributes(ModuleConfig module)
         {
             bool result = true;
             IEnumerator modInstEnum = module.ModuleConfigCollection.GetEnumerator();
@@ -298,7 +299,7 @@ namespace Mod.Configuration.Section
             }
         }
 
-        protected virtual Boolean FindInstance(ModuleConfig config)
+        protected virtual bool FindInstance(ModuleConfig config)
         {
             if(modules != null)
             {
@@ -322,16 +323,16 @@ namespace Mod.Configuration.Section
             return false;
         }
 
-        protected virtual Boolean LoadModule(ModuleConfig config)
+        protected virtual bool LoadModule(ModuleConfig config)
         {
             if((config != null) && config.IsInstance())
                 return CreateInstance(config);
             return false;
         }
 
-        protected virtual Boolean LoadModules(ModuleConfigCollection collection, int depth)
+        protected virtual bool LoadModules(ModuleConfigCollection collection, int depth)
         {
-            Boolean result = false;
+            bool result = false;
             if(collection != null)
             {
                 IEnumerator moduleEnum = collection.GetEnumerator();
@@ -353,7 +354,7 @@ namespace Mod.Configuration.Section
             return result;
         }
 
-        protected virtual Boolean FillProperties()
+        protected virtual bool FillProperties()
         {
             bool result = true;
             Dictionary<Guid, ModuleConfig>.Enumerator modInstEnum;
@@ -370,7 +371,7 @@ namespace Mod.Configuration.Section
         protected virtual Boolean LoadModules(ModuleConfig parent, int depth)
         {
             ModuleConfigCollection collection = parent.ModuleConfigCollection;
-            Boolean result = false;
+            bool result = false;
             if(collection != null)
             {
                 IEnumerator moduleEnum = collection.GetEnumerator();
@@ -392,7 +393,7 @@ namespace Mod.Configuration.Section
             return result;
         }
 
-        protected virtual Boolean LoadPlugins(PluginConfigCollection collection)
+        protected virtual bool LoadPlugins(PluginConfigCollection collection)
         {
             if(collection != null)
             {
@@ -414,7 +415,7 @@ namespace Mod.Configuration.Section
             return false;
         }
 
-        public Boolean Load(string sectionName = "ModConfigSection")
+        public bool Load(string sectionName = "ModConfigSection")
         {
             bool result = false;
 
@@ -443,6 +444,17 @@ namespace Mod.Configuration.Section
                     }
                 }
             }
+            return result;
+        }
+
+        public bool LoadSection(string file)
+        {
+            bool result = true;
+            Section = new ModConfigSection();
+        //    XmlTextReader xmlTextReader = new XmlTextReader(file);
+            XmlReader xmlReader = XmlReader.Create(file);
+         //   modConfigSection.DeserializeElement(xmlReader);
+            modConfigSection.DeserializeSection(xmlReader);
             return result;
         }
         #endregion
