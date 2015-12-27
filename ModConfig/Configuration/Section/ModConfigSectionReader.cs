@@ -447,14 +447,19 @@ namespace Mod.Configuration.Section
             return result;
         }
 
-        public bool LoadSection(string file)
+        public bool LoadFromFile(string file)
         {
-            bool result = true;
-            Section = new ModConfigSection();
-        //    XmlTextReader xmlTextReader = new XmlTextReader(file);
-            XmlReader xmlReader = XmlReader.Create(file);
-         //   modConfigSection.DeserializeElement(xmlReader);
-            modConfigSection.DeserializeSection(xmlReader);
+            bool result = false;
+            try
+            {
+                Section = new ModConfigSection();
+                XmlReader xmlReader = XmlReader.Create(file);
+                modConfigSection.DeserializeSection(xmlReader);
+                result = true;
+            }
+            catch
+            {
+            }
             return result;
         }
         #endregion

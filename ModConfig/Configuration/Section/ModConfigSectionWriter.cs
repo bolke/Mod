@@ -45,8 +45,8 @@ namespace Mod.Configuration.Section
                 settings.Indent = true;
                 settings.IndentChars = "    ";
                 StringWriter stringWriter = new StringWriter();
+                stringWriter.WriteLine("<?xml version=\"1.0\" encoding=\"utf-8\" ?>");
                 XmlWriter xmlWriter = XmlWriter.Create(stringWriter, settings);
-                //if(ModConfigSection.SerializeElement(xmlWriter))
                 if(ModConfigSection.SerializeSection(xmlWriter))
                 {
                     xmlWriter.Flush();

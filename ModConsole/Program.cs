@@ -37,11 +37,13 @@ namespace ModConsole
             mcw.Save("saved.xml");
 
             mcr = new ModConfigSectionReader();
-            mcr.LoadSection("./saved.xml");
+            mcr.LoadFromFile("./saved.xml");
         }
 
         static void Main(string[] args)
         {
+            ModConfigSectionReader reader = new ModConfigSectionReader();
+            reader.Load();
             Console.ReadLine();
         }
     }
