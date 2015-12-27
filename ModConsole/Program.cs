@@ -92,6 +92,7 @@ namespace ModConsole
 
             //Console.WriteLine(sb.ToString());
 
+            /*
             string saveFolder = @"f:/save_file";
             string oldSave = @"/001";
             string newSave = @"/002";
@@ -110,6 +111,16 @@ namespace ModConsole
             ModConfigSectionWriter writer = new ModConfigSectionWriter();
             writer.ModConfigSection = mm;
             writer.Save("nipple", @"f:/");
+             */
+
+            ModConfigSectionReader mcr = new ModConfigSectionReader();
+            ModConfigSectionWriter mcw = new ModConfigSectionWriter();
+
+            mcr.Load();
+            ModConfigSection mcs = mcr.Section;
+            mcw.ModConfigSection = mcs;
+
+            mcw.Save("saved.xml");
             Console.ReadLine();
         }
     }

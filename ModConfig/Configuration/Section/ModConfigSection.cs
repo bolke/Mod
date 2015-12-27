@@ -35,7 +35,8 @@ namespace Mod.Configuration.Section
 
         public virtual bool SerializeSection(XmlWriter writer)
         {
-            return base.SerializeToXmlElement(writer, "ModConfigSection");
+            return this.SerializeElement(writer, false);
+          //  return base.SerializeToXmlElement(writer, "ModConfigSection");
         }
 
     }

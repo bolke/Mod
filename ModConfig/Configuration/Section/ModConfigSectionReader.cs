@@ -18,8 +18,8 @@ namespace Mod.Configuration.Section
     public class ModConfigSectionReader
     {
         #region variables
+        private ModConfigSection section = null;
         private ModuleConfigCollection modules = null;
-
         private Dictionary<Guid, ModuleConfig> moduleInstances = new Dictionary<Guid, ModuleConfig>();
         private Boolean modulesLoaded = false;
         private Dictionary<Guid, ModuleConfig> moduleReferences = new Dictionary<Guid, ModuleConfig>();
@@ -40,6 +40,18 @@ namespace Mod.Configuration.Section
             protected set
             {
                 modules = value;
+            }
+        }
+
+        public ModConfigSection Section
+        {
+            get
+            {
+                return section;
+            }
+            set
+            {
+                section = value;
             }
         }
 
@@ -410,14 +422,14 @@ namespace Mod.Configuration.Section
             typeFactory.LoadPreloadedAssemblies();
 
             System.Configuration.Configuration configuration = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-            ModConfigSection section = configuration.GetSection(sectionName) as ModConfigSection;
+            Section = configuration.GetSection(sectionName) as ModConfigSection;
 
-            if(section != null)
+            if(Section != null)
             {
-                pluginsLoaded = LoadPlugins(section.PluginCollection);
+                pluginsLoaded = LoadPlugins(Section.PluginCollection);
                 if(pluginsLoaded)
                 {
-                    modulesLoaded = LoadModules(section.ModuleConfigCollection, 0);
+                    modulesLoaded = LoadModules(Section.ModuleConfigCollection, 0);
                     if(modulesLoaded)
                     {
                         for(int i = 0; i < modules.Count; i++)
@@ -433,17 +445,6 @@ namespace Mod.Configuration.Section
             }
             return result;
         }
-
-        /*public Boolean Run()
-        {
-          for (int i = 0; i < moduleInstances.Count; i++)
-          {
-            IRunnable runnable = moduleInstances.ElementAt(i).Value.Instance as IRunnable;
-            if ((runnable != null) && (runnable.AutoStart))
-              runnable.Start();
-          }
-          return true;
-        }  */
         #endregion
 
     }
